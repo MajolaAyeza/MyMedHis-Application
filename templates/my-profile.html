@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Profile - My Medical History App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        td {
+            padding: 8px;
+            vertical-align: top;
+        }
+        input[type="text"], input[type="number"], input[type="email"], input[type="tel"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        textarea {
+            resize: none;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Create Your Profile</h1>
+    </header>
+    <div class="container">
+        <form id="profile-form">
+            <table>
+                <!-- Basic Information -->
+                <tr>
+                    <td><label for="full-names">Full Name:</label></td>
+                    <td><input type="text" id="full-names" name="fullNames" required></td>
+                </tr>
+                <tr>
+                    <td><label for="Passport/SA ID Number">Passport/SA ID number:</label></td>
+                    <td><input type="passport/SA ID number" id="Passport/SA ID number" name="Passport/SA ID number" required></td>    
+                </tr>
+                <tr>
+                    <td><label for="email address">Email:</label></td>
+                    <td><input type="email address" id="email address" name="email address" required></td>
+                </tr>
+                <tr>
+                    <td><label for="phone">Phone Number:</label></td>
+                    <td><input type="tel" id="phone" name="phone" required></td>
+                </tr>
+                <tr>
+                    <td><label for="date-of-birth">Date of Birth:</label></td>
+                    <td><input type="date" id="date-of-birth" name="dateOfBirth" required></td>
+                </tr>
+
+                <!-- Emergency Medical Information -->
+                <tr>
+                    <td><label for="emergency-medical-history">Emergency Medical History:</label></td>
+                    <td><textarea id="emergency-medical-history" name="emergencyMedicalHistory" placeholder="Describe any major health events"></textarea></td>
+                </tr>
+                <tr>
+                    <td><label for="emergency-contact-name">Emergency Contact Name:</label></td>
+                    <td><input type="text" id="emergency-contact-name" name="emergencyContactName" required></td>
+                </tr>
+                <tr>
+                    <td><label for="emergency-contact-phone">Emergency Contact Phone:</label></td>
+                    <td><input type="tel" id="emergency-contact-phone" name="emergencyContactPhone" required></td>
+                </tr>
+                <tr>
+                    <td><label for="emergency-contact-relationship">Relationship to Emergency Contact:</label></td>
+                    <td><input type="text" id="emergency-contact-relationship" name="emergencyContactRelationship" required></td>
+                </tr>
+                <tr>
+                    <td><label for="emergency-contact-address">Emergency Contact Address:</label></td>
+                    <td><input type="text" id="emergency-contact-address" name="emergencyContactAddress" required></td>
+                </tr>
+
+                <!-- Consent and Legal Information -->
+                <tr>
+                    <td><label><input type="checkbox" name="consentTreatment" required> I agree to treatment if necessary.</label></td>
+                </tr>
+                <tr>
+                    <td><label><input type="checkbox" name="termsConditions" required> I have read and agree to the Terms & Conditions.</label></td>
+                </tr>
+                <tr>
+                    <td><label><input type="checkbox" name="privacyPolicy" required> I consent to the Privacy Policy.</label></td>
+                </tr>
+
+                <!-- Health Tracking & Monitoring -->
+                <tr>
+                    <td><label for="blood-pressure">Blood Pressure (Systolic/Diastolic):</label></td>
+                    <td><input type="text" id="blood-pressure" name="bloodPressure" placeholder="e.g., 120/80"></td>
+                </tr>
+                <tr>
+                    <td><label for="activity-level">Physical Activity Level:</label></td>
+                    <td>
+                        <select id="activity-level" name="activityLevel" required>
+                            <option value="sedentary">Sedentary</option>
+                            <option value="light">Light Activity</option>
+                            <option value="active">Active</option>
+                            <option value="very_active">Very Active</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <!-- Payment Information -->
+                <tr>
+                    <td><label for="insurance-provider">Medical Aid Provider:</label></td>
+                    <td><input type="text" id="insurance-provider" name="insuranceProvider"></td>
+                </tr>
+                <tr>
+                    <td><label for="insurance-id">Insurance ID Number:</label></td>
+                    <td><input type="text" id="insurance-id" name="insuranceId"></td>
+                </tr>
+                <tr>
+                    <td><label for="payment-method">Preferred Payment Method:</label></td>
+                    <td>
+                        <select id="payment-method" name="paymentMethod" required>
+                            <option value="visa">Visa</option>
+                            <option value="sa-bank-card">SA Bank Card</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <!-- Special Needs and Disability Information -->
+                <tr>
+                    <td><label for="disability-type">Disability Type:</label></td>
+                    <td><input type="text" id="disability-type" name="disabilityType"></td>
+                </tr>
+                <tr>
+                    <td><label for="disability-details">Disability Details:</label></td>
+                    <td><textarea id="disability-details" name="disabilityDetails" placeholder="Describe any disability"></textarea></td>
+                </tr>
+
+                <!-- Health Risks and Lifestyle Choices -->
+                <tr>
+                    <td><label for="smoking-status">Smoking History:</label></td>
+                    <td>
+                        <select id="smoking-status" name="smokingStatus">
+                            <option value="non-smoker">Non-smoker</option>
+                            <option value="former-smoker">Former Smoker</option>
+                            <option value="current-smoker">Current Smoker</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="alcohol-consumption">Alcohol Consumption:</label></td>
+                    <td><input type="text" id="alcohol-consumption" name="alcoholConsumption" placeholder="e.g., 1-2 drinks/week"></td>
+                </tr>
+
+                <!-- Additional Notes Section -->
+                <tr>
+                    <td><label for="additional-notes">General Health Concerns:</label></td>
+                    <td><textarea id="additional-notes" name="additionalNotes" placeholder="Include any health concerns or goals you want to share."></textarea></td>
+                </tr>
+            </table>
+
+            <button type="submit" class="btn">Create Profile</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Doctor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .doctor-list {
+            margin-top: 30px;
+        }
+        .doctor-card {
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .doctor-card h3 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+        .doctor-card p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Find a Doctor</h1>
+    </header>
+
+    <div class="container">
+        <h2>Search for a Doctor</h2>
+
+        <!-- Search Form -->
+        <form action="/search-doctors" method="GET">
+            <div class="form-group">
+                <label for="specialization">Specialization:</label>
+                <select id="specialization" name="specialization">
+                    <option value="general">General Practitioner</option>
+                    <option value="dentist">Dentist</option>
+                    <option value="dermatologist">Dermatologist</option>
+                    <option value="cardiologist">Cardiologist</option>
+                    <option value="gynecologist">Gynecologist</option>
+                    <option value="pediatrician">Pediatrician</option>
+                </select>
+            </div>
+
+            <!-- Provinces dropdown -->
+            <div class="form-group">
+                <label for="province">Province:</label>
+                <select id="province" name="province" onchange="updateCities()">
+                    <option value="gauteng">Gauteng</option>
+                    <option value="limpopo">Limpopo</option>
+                    <option value="kwazulu-natal">KwaZulu-Natal</option>
+                    <option value="western-cape">Western Cape</option>
+                    <option value="eastern-cape">Eastern Cape</option>
+                    <option value="free-state">Free State</option>
+                    <option value="mpumalanga">Mpumalanga</option>
+                    <option value="north-west">North West</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <!-- Cities dropdown (dynamically populated based on selected province) -->
+            <div class="form-group" id="city-group">
+                <label for="city">City:</label>
+                <select id="city" name="city">
+                    <!-- Cities will be populated here -->
+                </select>
+            </div>
+
+            <!-- Option to input custom location if "Other" is selected for province -->
+            <div class="form-group" id="custom-location-group" style="display: none;">
+                <label for="custom-location">Enter your City or Location:</label>
+                <input type="text" id="custom-location" name="customLocation" placeholder="Enter City or Zip Code">
+            </div>
+
+            <div class="form-group">
+                <label for="availability">Availability:</label>
+                <select id="availability" name="availability">
+                    <option value="morning">Morning</option>
+                    <option value="afternoon">Afternoon</option>
+                    <option value="evening">Evening</option>
+                    <option value="anytime">Anytime</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="insurance">Do you have medical insurance?</label>
+                <select id="insurance" name="insurance">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn">Search Doctors</button>
+        </form>
+
+        <!-- List of Doctors (this would be dynamically generated) -->
+        <div class="doctor-list">
+            <div class="doctor-card">
+                <h3>Dr. John Doe</h3>
+                <p><strong>Specialization:</strong> General Practitioner</p>
+                <p><strong>Location:</strong> New York, NY</p>
+                <p><strong>Available:</strong> Morning and Afternoon</p>
+                <p><strong>Insurance Accepted:</strong> Yes</p>
+                <button class="btn">Book Appointment</button>
+            </div>
+
+            <div class="doctor-card">
+                <h3>Dr. Jane Smith</h3>
+                <p><strong>Specialization:</strong> Dentist</p>
+                <p><strong>Location:</strong> Los Angeles, CA</p>
+                <p><strong>Available:</strong> Afternoon and Evening</p>
+                <p><strong>Insurance Accepted:</strong> No</p>
+                <button class="btn">Book Appointment</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to update cities based on selected province
+        function updateCities() {
+            const province = document.getElementById('province').value;
+            const citySelect = document.getElementById('city');
+            const customLocationGroup = document.getElementById('custom-location-group');
+            const cities = {
+                gauteng: ['Johannesburg', 'Pretoria', 'Ekurhuleni'],
+                limpopo: ['Polokwane', 'Tzaneen', 'Makhado'],
+                'kwazulu-natal': ['Durban', 'Pietermaritzburg', 'Newcastle'],
+                'western-cape': ['Cape Town', 'George', 'Stellenbosch'],
+                'eastern-cape': ['Port Elizabeth', 'East London', 'Mthatha'],
+                'free-state': ['Bloemfontein', 'Sasolburg', 'Welkom'],
+                mpumalanga: ['Nelspruit', 'Mbombela', 'Komatipoort'],
+                'north-west': ['Mahikeng', 'Klerksdorp', 'Rustenburg']
+            };
+
+            // Reset cities dropdown
+            citySelect.innerHTML = '';
+            if (province === 'other') {
+                customLocationGroup.style.display = 'block';
+                return;
+            }
+
+            customLocationGroup.style.display = 'none';
+            const provinceCities = cities[province] || [];
+            provinceCities.forEach(city => {
+                const option = document.createElement('option');
+                option.value = city;
+                option.textContent = city;
+                citySelect.appendChild(option);
+            });
+        }
+    </script>
+
+</body>
+</html>

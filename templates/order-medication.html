@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Medication - My Medical History App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Order Medication</h1>
+    </header>
+    <div class="container">
+        <form id="medication-order-form">
+            <table>
+                <tr>
+                    <th>Field</th>
+                    <th>Details</th>
+                </tr>
+                <tr>
+                    <td>Full Name:</td>
+                    <td><input type="text" id="full-name" name="fullName" required></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><input type="email" id="email" name="email" required></td>
+                </tr>
+                <tr>
+                    <td>Phone Number:</td>
+                    <td><input type="tel" id="phone" name="phone" required></td>
+                </tr>
+                <tr>
+                    <td>Doctor's Name:</td>
+                    <td><input type="text" id="doctor-name" name="doctorName" required></td>
+                </tr>
+                <tr>
+                    <td>Upload Prescription:</td>
+                    <td><input type="file" id="prescription" name="prescription" required></td>
+                </tr>
+                <tr>
+                    <td>Medication Name:</td>
+                    <td><input type="text" id="medication-name" name="medicationName" required></td>
+                </tr>
+                <tr>
+                    <td>Dosage:</td>
+                    <td><input type="text" id="dosage" name="dosage" placeholder="e.g., 500mg" required></td>
+                </tr>
+                <tr>
+                    <td>Quantity:</td>
+                    <td><input type="number" id="quantity" name="quantity" min="1" required></td>
+                </tr>
+                <tr>
+                    <td>Delivery Method:</td>
+                    <td>
+                        <select id="delivery-method" name="deliveryMethod" required>
+                            <option value="pickup">Pickup at Pharmacy</option>
+                            <option value="home-delivery">Home Delivery</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr id="delivery-address-group" class="hidden">
+                    <td>Delivery Address:</td>
+                    <td><input type="text" id="delivery-address" name="deliveryAddress" placeholder="Enter full address"></td>
+                </tr>
+                <tr>
+                    <td>Payment Method:</td>
+                    <td>
+                        <select id="payment-method" name="paymentMethod" required>
+                            <option value="">-- Select Payment Method --</option>
+                            <option value="medical-aid">Medical Aid</option>
+                            <option value="visa">Visa Card</option>
+                            <option value="sa-bank-card">SA Bank Card</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr id="medical-aid-group" class="hidden">
+                    <td>Medical Aid Number:</td>
+                    <td><input type="text" id="medical-aid-number" name="medicalAidNumber"></td>
+                </tr>
+                <tr id="sa-bank-list-group" class="hidden">
+                    <td>Select Your Bank:</td>
+                    <td>
+                        <select id="sa-bank-list" name="saBankList">
+                            <option value="fnb">First National Bank (FNB)</option>
+                            <option value="standard">Standard Bank</option>
+                            <option value="absa">ABSA</option>
+                            <option value="nedbank">Nedbank</option>
+                            <option value="capitec">Capitec Bank</option>
+                            <option value="investec">Investec</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr id="card-payment-group" class="hidden">
+                    <td>Card Number:</td>
+                    <td><input type="text" id="card-number" name="cardNumber" placeholder="Enter card number"></td>
+                </tr>
+                <tr id="cvv-group" class="hidden">
+                    <td>CVV:</td>
+                    <td><input type="text" id="cvv" name="cvv" placeholder="Enter CVV"></td>
+                </tr>
+                <tr id="expiry-group" class="hidden">
+                    <td>Expiration Date:</td>
+                    <td><input type="month" id="expiry-date" name="expiryDate"></td>
+                </tr>
+                <tr>
+                    <td>Additional Notes:</td>
+                    <td><textarea id="notes" name="notes" placeholder="Any special instructions (optional)"></textarea></td>
+                </tr>
+            </table>
+            <button type="submit" class="btn">Place Order</button>
+            <button type="button" id="proceed-payment" class="btn hidden">Proceed to Payment</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('delivery-method').addEventListener('change', function() {
+            document.getElementById('delivery-address-group').classList.toggle('hidden', this.value !== 'home-delivery');
+        });
+
+        document.getElementById('payment-method').addEventListener('change', function() {
+            let medicalAidGroup = document.getElementById('medical-aid-group');
+            let saBankGroup = document.getElementById('sa-bank-list-group');
+            let cardPaymentGroup = document.getElementById('card-payment-group');
+            let cvvGroup = document.getElementById('cvv-group');
+            let expiryGroup = document.getElementById('expiry-group');
+            let proceedPaymentBtn = document.getElementById('proceed-payment');
+
+            if (this.value === 'medical-aid') {
+                medicalAidGroup.classList.remove('hidden');
+                saBankGroup.classList.add('hidden');
+                cardPaymentGroup.classList.add('hidden');
+                cvvGroup.classList.add('hidden');
+                expiryGroup.classList.add('hidden');
+            } else {
+                medicalAidGroup.classList.add('hidden');
+                cardPaymentGroup.classList.remove('hidden');
+                cvvGroup.classList.remove('hidden');
+                expiryGroup.classList.remove('hidden');
+                saBankGroup.classList.toggle('hidden', this.value !== 'sa-bank-card');
+            }
+            proceedPaymentBtn.classList.remove('hidden');
+        });
+
+        document.getElementById('proceed-payment').addEventListener('click', function() {
+            alert("Redirecting to secure payment page...");
+            // Implement actual payment gateway integration here
+        });
+    </script>
+</body>
+</html>

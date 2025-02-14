@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - My Medical History App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h2>My Medical History App</h2>
+        </div>
+        <nav>
+            <a href="{{ url_for('landing_page') }}">Home</a>
+            <a href="#">About Us</a>
+            <a href="#">Contact Us</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="form-container">
+            <h1>Patient Registration</h1>
+            <form method="POST">
+                
+                <div class="card">
+                    <h2>Personal Information</h2>
+                    <input type="text" name="full_name" placeholder="Full Name" required>
+                    <input type="email" name="email" placeholder="Email Address" required>
+                    <input type="text" name="phone" placeholder="Phone Number" required>
+                    <input type="date" name="dob" placeholder="Date of Birth" required>
+                    <select name="gender" required>
+                        <option value="" disabled selected>Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="card">
+                    <h2>Medical Details</h2>
+                    <input type="text" name="blood_type" placeholder="Blood Type" required>
+                    <input type="text" name="allergies" placeholder="Allergies (if any)">
+                    <input type="text" name="medical_conditions" placeholder="Medical Conditions (if any)">
+                    <input type="text" name="emergency_contact" placeholder="Emergency Contact Name" required>
+                    <input type="text" name="emergency_phone" placeholder="Emergency Contact Phone" required>
+                </div>
+
+                <div class="card">
+                    <h2>Account Setup</h2>
+                    <input type="text" name="username" placeholder="Username" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                </div>
+
+                <button type="submit">Sign Up</button>
+            </form>
+
+            <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2025 My Medical History App. All rights reserved.
+    </footer>
+
+</body>
+</html>
